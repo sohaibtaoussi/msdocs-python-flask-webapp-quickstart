@@ -61,7 +61,7 @@ stages:
                     azureSubscription: 'azure-flaskapp-cicd'
                     appType: 'webAppLinux'
                     appName: '$(stagingAppName)'
-                    package: '$(Pipeline.Workspace)/flask-app/app.zip'
+                    package: '$(Pipeline.Workspace)/flaskapp/app.zip'
                     runtimeStack: 'PYTHON|3.12'
                     startUpCommand: 'gunicorn --bind=0.0.0.0 --timeout 600 app:app'
 
