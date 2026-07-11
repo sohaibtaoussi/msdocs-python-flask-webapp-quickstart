@@ -6,6 +6,9 @@ pool:
 
 variables:
   pythonVersion: "3.12"
+  azureServiceConnection: 'azure-flaskapp-cicd'   
+  stagingAppName: 'flaskapp'         
+  artifactName: 'flaskapp'
 
 stages:
   - stage: Build
@@ -47,7 +50,7 @@ stages:
     jobs: 
       - deployment: DeployStagingJob
         displayName: 'Deploy Flask app to staging'
-        environment: 'Staging'
+        environment: 'staging'
         strategy: 
           runOnce:
             deploy:
