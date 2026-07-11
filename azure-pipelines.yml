@@ -37,6 +37,6 @@ stages:
             displayName: 'Publish artifact'
             inputs:
               targetPath: '$(Build.ArtifactStagingDirectory)/app.zip'
-              artifact: 'flaskapp'
+              artifact: 'flask-app'
               publishLocation: 'pipeline'
 
