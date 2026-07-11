@@ -1,0 +1,42 @@
+trigger: 
+  - main 
+
+pool:
+  vmImage: 'Ubuntu-latest'
+
+variables:
+  pythonVersion: "3.12"
+
+stages:
+  - stage: Build
+    displayName: 'Build'
+    jobs:
+      - job: Buildjob
+        displayName: 'Build flask app'
+        steps:
+          - task: UsePythonVersion@0
+            displayName: 'Use Python $(pythonVersion)'
+            inputs:
+              versionSpec: '$(pythonVersion)'
+
+          - script: |
+              python -m pip install --upgrade pip
+              pip -r install requirements.txt
+            displayName: 'Install dependencies'
+
+          - task: ArchiveFiles@2
+            displayName: 'Archive zip application'
+            inputs:
+              rootFolderOrFile: '$(Build.SourcesDirectory)'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$app.zip'
+              replaceExistingArchive: true
+
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish artifact'
+            inputs:
+              targetPath: '$(Build.ArtifactStagingDirectory)/app.zip'
+              artifact: 'flaskapp'
+              publishLocation: 'pipeline'
+
